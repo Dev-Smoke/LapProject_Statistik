@@ -1,0 +1,25 @@
+﻿@{
+    ViewBag.Title = "Login";
+}
+
+<style>
+    .loginAndRegister {
+        display: flex;
+        justify-content: center;
+        margin-top: 2rem;
+    }
+</style>
+
+<h2 class="text-center">Anmelden</h2>
+
+<div class="row">
+    <div class="col loginAndRegister">
+        <form method="post" class="form">
+            <input name="email" placeholder="E-Mail" class="form-control" />
+            <input type="password" name="password" placeholder="Passwort" class="form-control" style="margin-top: 1rem;" />
+            <div class="text-center">
+                <button class="btn btn-primary" style="margin-top: 1rem;">Anmelden</button>
+            </div>
+        </form>
+    </div>
+</div>

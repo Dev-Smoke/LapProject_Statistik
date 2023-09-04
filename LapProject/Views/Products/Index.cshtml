@@ -1,0 +1,80 @@
+﻿@model LapProject.Models.Products.IndexVm
+@{
+    ViewBag.Title = "Index";
+    ViewBag.ReturnUrl = $"/Products/Index?search={Model.Search}&catId={Model.CatId}&manId={Model.ManId}";
+}
+
+
+<style>
+    .searchBar {
+        margin-top: 3rem;
+        margin-bottom: 3rem;
+        border: 1px solid gray;
+        border-radius: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        padding: 2rem;
+    }
+</style>
+
+<h2 class="text-center">Unser Sortiment</h2>
+<div class="row">
+    <form class="form-group form-inline searchBar">
+        <div class="col-sm-10">
+            <label>Suchen und filtern:</label>
+            <input name="search" class="form-control" value="@Model.Search" placeholder="Suchbegriff" />
+            <select name="catId" class="form-control">
+                <option default selected="@Model.IsCatSelected(null)" value="null">Alle Kategorien</option>
+                @foreach (var catKvp in Model.CategoryDropdownData)
+                {
+                    <option value="@catKvp.Key" selected="@Model.IsCatSelected(catKvp.Key)">@catKvp.Value</option>
+                }
+            </select>
+            <select name="manId" class="form-control">
+                <option default selected="@Model.IsManSelected(null)" value="null">Alle Hersteller</option>
+                @foreach (var manKvp in Model.ManufacturerDropdownData)
+                {
+                    <option selected="@Model.IsManSelected(manKvp.Key)" value="@manKvp.Key">@manKvp.Value</option>
+                }
+            </select>
+            <button class="btn btn-primary"><i class="glyphicon glyphicon-search"></i></button>
+        </div>
+        <div class="col-sm-2">
+            <a class="btn btn-danger form-control" href="/Products">Filter zurücksetzen</a>
+        </div>
+    </form>
+</div>
+
+
+@for (int i = 0; i < Model.Products.Count; i += 3)
+{
+    <div class="row">
+        @if (i < Model.Products.Count)
+        {
+            <div class="col-sm-4">
+                @Html.Partial("_IndexProduct", Model.Products[i])
+            </div>
+        }
+        @if (i + 1 < Model.Products.Count)
+        {
+            <div class="col-sm-4">
+                @Html.Partial("_IndexProduct", Model.Products[i + 1])
+            </div>
+        }
+        @if (i + 2 < Model.Products.Count)
+        {
+            <div class="col-sm-4">
+                @Html.Partial("_IndexProduct", Model.Products[i + 2])
+            </div>
+        }
+    </div>
+}
+
+<script>
+    jQuery(document).ready(function ($) {
+        $(".clickable-row").click(function () {
+            window.location = $(this).data("href");
+        });
+    });
+</script>

@@ -1,0 +1,61 @@
+﻿@model LapProject.Models.Products.DetailVm
+
+@{
+    ViewBag.Title = Model.ProductName;
+    var returnUrl = $"/Products/Detail/{Model.ProductId}";
+
+}
+
+<style>
+    .productDetails {
+        margin-top: 3rem;
+    }
+
+        .productDetails img {
+            max-height: 200px;
+            object-fit: contain;
+            margin-top: 1rem;
+        }
+
+        .productDetails .productDescription {
+            margin-top: 2rem;
+        }
+</style>
+
+<div class="productDetails">
+    <div class="row">
+        <div class="col text-center">
+            <h2>@Model.ProductName (@Model.ManufacturerName)</h2>
+            <h4>@Model.CategoryName</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col imgWrapper text-center">
+            <img src="@Model.ProductImagePath" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col text-justify productDescription">
+            @Model.ProductDescription
+        </div>
+    </div>
+    <form method="post" action="/Cart/Add" class="form-inline">
+        <input type="hidden" name="returnUrl" value="@returnUrl" />
+        <div class="row">
+            <div class="col text-center">
+                <h4>Stückpreis: <b>@Model.ProductPrice</b></h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col text-center">
+                <select class="form-control" name="quantity">
+                    @foreach (var num in Enumerable.Range(1, 10))
+                    {
+                        <option>@num</option>
+                    }
+                </select>
+                <button name="productId" value="@Model.ProductId" class="btn btn-success"><i class="glyphicon glyphicon-shopping-cart"></i></button>
+            </div>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,111 @@
+﻿@model LapProject.Models.Products.IndexVmProduct
+
+@{
+   @* var returnUrl = "foo"; // $"/Products/Index?search={Model.Search}&catId={Model.CatId}&manId={Model.ManId}";*@
+}
+
+<style>
+    .productContainer {
+        margin-bottom: 2rem;
+    }
+
+    .productContainer:hover {
+        transform: scale(1.05);
+    }
+
+        .productContainer img {
+            width: 100%;
+            object-fit: contain;
+            height: 200px;
+        }
+
+        .productContainer .productTop {
+            text-align: center;
+            height: 8rem;
+            font-size: 3rem;
+            display: flex;
+            align-items: self-end;
+            justify-content: center;
+            border-top: 2px solid grey;
+            border-radius: 25px;
+        }
+
+        .productContainer .productManufacturer {
+            text-align: center;
+            font-size: 1.5rem;
+            display: flex;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+
+        .productContainer .productBot {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            text-align: center;
+            height: 4rem;
+            margin-top: 1rem;
+            border-bottom: 2px solid grey;
+            border-radius: 25px;
+        }
+
+        .productContainer .productPrice {
+            margin-right: 1rem;
+        }
+
+    .productClickable:hover {
+        cursor: pointer;
+    }
+
+    @@media (min-width: 748px) {
+        .productContainer .productTop {
+            font-size: 3rem;
+        }
+    }
+    @@media (min-width: 749px) {
+        .productContainer .productTop {
+            font-size: 1.5rem;
+        }
+    }
+
+    @@media (min-width: 1200px) {
+        .productContainer .productTop {
+            font-size: 3rem;
+        }
+    }
+
+</style>
+
+<div class="productContainer">
+    <div class="productClickable" data-href="/Products/Detail/@Model.Id">
+        <div class="productTop">
+            @Model.Name
+        </div>
+        <div class="productManufacturer">
+            (@Model.Manufacturer)
+        </div>
+        <div class="imgContainer">
+            <img src="@Model.ImagePath">
+        </div>
+    </div>
+    <div class="productBot">
+        <div class="productPrice">
+            @Model.Price
+        </div>
+        <div class="productBuy">
+            <form method="post" action="/Cart/Add">
+                <input type="hidden" name="returnUrl" value="@ViewBag.ReturnUrl" />
+                <button name="productId" value="@Model.Id" class="btn btn-success"><i class="glyphicon glyphicon-shopping-cart"></i></button>
+            </form>
+        </div>        
+    </div>
+</div>
+
+<script>
+    jQuery(document).ready(function ($) {
+        $(".productClickable").click(function () {
+            window.location = $(this).data("href");
+        });
+    });
+</script>

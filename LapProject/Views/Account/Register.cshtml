@@ -1,0 +1,61 @@
+﻿
+@{
+    ViewBag.Title = "Registrieren";
+}
+
+<style>
+    .loginAndRegister {
+        display: flex;
+        justify-content: center;
+        margin-top: 2rem;
+    }
+</style>
+
+<h2 class="text-center">Für den Game Over Game Store Registrieren</h2>
+
+<div class="row">
+    <div class="col loginAndRegister">
+        <form method="post" action="/Account/Register" class="form">
+            <div class="form-group">
+                <label>Anrede: </label>
+                <select name="title" class="form-control">
+                    <option>Herr</option>
+                    <option>Frau</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Vorname: </label>
+                <input name="firstName" placeholder="Vorname" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label>Nachname: </label>
+                <input name="lastName" placeholder="Nachname" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label>Adresse: </label>
+                <input name="street" placeholder="Straße und Hausnummer" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label>Postleitzahl: </label>
+                <input name="zipCode" placeholder="PLZ" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label>Stadt: </label>
+                <input name="city" placeholder="Stadt" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label>E-Mail Adresse: </label>
+                <input name="email" placeholder="E-Mail Adresse" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label>Passwort: </label>
+                <input type="password" name="password" placeholder="Passwort" class="form-control" />
+                <input type="password" name="passwordCheck" placeholder="Passwort bestätigen" class="form-control" />
+            </div>
+            <div class="checkbox">
+                <label class="checkbox-inline"><input name="acceptedTos" type="checkbox" />Ich habe die <a target="_blank" href="/Home/AGBs">AGBs</a> gelesen und akzeptiere sie.</label>
+            </div>
+            <p><button class="btn btn-primary">Jetzt Konto erstellen</button></p>
+        </form>
+    </div>
+</div>

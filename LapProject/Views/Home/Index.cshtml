@@ -1,0 +1,71 @@
+﻿@{
+    ViewBag.Title = "GameOver Game Store";
+}
+
+<style>
+    .jumboImg {
+        background-image: url("/Content/Images/Homepage/banner.png");
+        background-size: 100%;
+        background-position: center;
+        background-repeat: no-repeat;
+        margin-top: 2rem;
+        height: 300px;
+    }
+
+        .jumboImg p, .jumboImg h2 {
+            color: white;
+        }
+
+    .catBox img {
+        width: 100%;
+        object-fit: contain;
+        margin-bottom: 1rem;
+    }
+
+    .catBox a {
+        color: inherit;
+        text-decoration: inherit;
+    }
+
+    .catBox h2 {
+        text-align: center;
+    }
+</style>
+
+<div class="jumbotron jumboImg">
+    <h2>Herzlich Willkommen im Game Over!</h2>
+    <p class="lead">Der Game-Store deines Vertrauens.</p>
+</div>
+
+<div class="row">
+    <div class="col text-center">
+        <h1>Entdecke die große Welt der Spiele im Game Over</h1>
+        <h2><a href="/Products/Index">Hier gehts zu unserem Sortiment</a></h2>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4 catBox">
+        <a href="/Products/Index?catId=1">
+            <h2>Brettspiele</h2>
+            <img class="catImg" src="~/Content/Images/Homepage/boardgames.jpg" />
+            <p>Für groß und klein - was darf's sein?</p>
+        </a>
+        <p><a class="btn btn-default" href="/Products/Index?catId=1">Jetzt stöbern &raquo;</a></p>
+    </div>
+    <div class="col-md-4 catBox">
+        <a href="/Products/Index?catId=3">
+            <h2>Videospiele</h2>
+            <img class="catImg" src="~/Content/Images/Homepage/videogames.jpg" />
+            <p>Spiele für alle gängigen Konsolen!</p>
+        </a>
+        <p><a class="btn btn-default" href="/Products/Index?catId=3">Jetzt stöbern &raquo;</a></p>
+    </div>
+    <div class="col-md-4 catBox">
+        <a href="/Products/Index?catId=4">
+            <h2>Pen & Paper</h2>
+            <img class="catImg" src="~/Content/Images/Homepage/penandpaper.jpg" />
+            <p>Für die Rollenspieler unter euch!</p>
+        </a>
+        <p><a class="btn btn-default" href="/Products/Index?catId=4">Jetzt stöbern &raquo;</a></p>
+    </div>
+</div>

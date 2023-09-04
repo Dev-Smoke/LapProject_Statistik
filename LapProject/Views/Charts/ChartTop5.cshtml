@@ -1,0 +1,83 @@
+﻿@using Newtonsoft.Json
+@model LapProject.Models.Chart.ChartVM
+@{
+
+    ViewBag.Title = "ChartTop5";
+
+}
+
+
+<h2>Statistik1 - Meistverkaufte Produkte</h2>
+
+@for (int i = 0; i < Model.Anzahl.Length; i++)
+
+{
+
+    <p>@Model.Namen[i]: @Model.Anzahl[i]</p>
+
+}
+
+<div>
+
+    <canvas id="myChart"></canvas>
+
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+
+const ctx = document.getElementById('myChart');
+
+new Chart(ctx,
+
+{
+
+type: 'bar',
+
+data:
+
+{
+
+//labels: ['Rot', 'Blau', 'Yellow', 'Green', 'Purple', 'Orange'],
+
+labels: @Html.Raw(JsonConvert.SerializeObject(Model.Namen)),
+
+datasets:
+
+[
+
+{
+
+label: 'Verkaufte Stück',
+
+//data: [25, 11, 3, 5, 2, 3],
+
+data: @JsonConvert.SerializeObject(Model.Anzahl),
+
+borderWidth: 5
+
+}
+
+]
+
+},
+
+options: {
+
+scales: {
+
+y: {
+
+beginAtZero: true
+
+}
+
+}
+
+}
+
+});
+
+</script>

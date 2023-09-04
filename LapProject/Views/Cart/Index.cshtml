@@ -1,0 +1,101 @@
+﻿@model LapProject.Models.Cart.IndexVm
+
+@{
+    ViewBag.Title = "Einkaufswagen";
+}
+
+<style>
+    .cartRow td {
+        vertical-align: middle !important;
+    }
+
+    .cartLargerText {
+        font-size: larger;
+    }
+</style>
+
+<div class="row">
+    <div class="col">
+        <h2 class="text-center">Ihr Einkaufswagen</h2>
+    </div>
+</div>
+
+@if (Model.OrderLines.Count == 0)
+{
+    <div class="row">
+        <div class="col text-center">
+            <h3>Ihr Einkaufswagen ist leider leer :-(</h3>
+            <h4><a href="/Products">Hier können Sie unser Sortiment durchsuchen</a></h4>
+        </div>
+    </div>
+}
+else
+{
+    <div class="row">
+        <div class="col">
+            <table class="table table-responsive table-condensed">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th>Stückpreis</th>
+                        <th>Anzahl</th>
+                        <th class="text-right">Zeilenpreis</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var orderLine in Model.OrderLines)
+                    {
+                        <tr class="cartRow">
+                            <td>
+                                <form method="post" action="/Cart/Remove">
+                                    <button name="productId" value="@orderLine.ProductId" class="btn btn-danger">
+                                        <i class="glyphicon glyphicon-trash"></i>
+                                    </button>
+                                </form>
+                            </td>
+                            <td class="text-center"><img height="100" src="@orderLine.ImagePath" /></td>
+                            <td>@orderLine.Name (@orderLine.Manufacturer)</td>
+                            <td class="cartLargerText">@orderLine.GrossUnitPrice</td>
+                            <td>
+                                <form method="post" action="/Cart/ChangeQuantity">
+                                    <input type="hidden" name="productId" value="@orderLine.ProductId" />
+                                    <select name="quantity" onchange="this.form.submit()" class="form-control">
+                                        @foreach (var num in Enumerable.Range(1, 10))
+                                        {
+                                            <option selected="@(orderLine.Quantity == num ? true : false)">@num</option>
+                                        }
+                                    </select>
+                                </form>
+                            </td>
+                            <td class="text-right cartLargerText">
+                                @if (orderLine.GrossDiscountedLinePrice != orderLine.GrossLinePrice)
+                                {
+                                    <s>@orderLine.GrossLinePrice</s><br />@orderLine.GrossDiscountedLinePrice
+                                }
+                                else
+                                {
+                                    <span>@orderLine.GrossLinePrice</span>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col text-right">
+            <hr />
+            <h4>Gesamtpreis: @Model.TotalPrice</h4>
+            @if (Model.PriceToPay != Model.TotalPrice)
+            {
+                <h4>Produktrabatt: @Model.ProductDiscountAmount</h4>
+                <h4>Bestellungsrabatt: @Model.OrderDiscountAmount</h4>
+                <h3>Zu zahlen: @Model.PriceToPay</h3>
+            }
+            <form method="get" action="/Order/New"><button class="btn btn-success">Warenkorb bestellen</button></form>
+        </div>
+    </div>
+}

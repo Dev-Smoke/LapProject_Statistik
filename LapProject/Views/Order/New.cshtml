@@ -1,0 +1,89 @@
+﻿@model LapProject.Models.Order.NewVm
+@{
+    ViewBag.Title = "Bestellung abschließen";
+}
+
+<h2 class="text-center">Bestellung abschließen</h2>
+<form method="post" action="/Order/Complete" class="form-horizontal">
+    <div class="row">
+        <div class="col-sm-4">
+            <h3>Rechnungs- und Versandadresse</h3>
+            <div class="form-group">
+                <label class="control-label col-sm-3">Vorname:</label>
+                <div class="col-sm-9">
+                    <input name="firstName" placeholder="Vorname" class="form-control" value="@Model.FirstName" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-3">Nachname:</label>
+                <div class="col-sm-9">
+                    <input name="lastName" placeholder="Nachname" class="form-control" value="@Model.LastName" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-3">Adresse:</label>
+                <div class="col-sm-9">
+                    <input name="street" placeholder="Straße und Hausnummer" class="form-control" value="@Model.Street" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-3">Postleitzahl:</label>
+                <div class="col-sm-9">
+                    <input name="zipCode" placeholder="PLZ" class="form-control" value="@Model.ZipCode" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-3">Stadt:</label>
+                <div class="col-sm-9">
+                    <input name="city" placeholder="Stadt" class="form-control" value="@Model.City" />
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-8">
+            <h3>Produkte</h3>
+            <table class="table table-responsive table-condensed">
+                <tbody>
+                    @foreach (var orderLine in Model.OrderLines)
+                    {
+                        <tr>
+                            <td class="text-right">@($"{orderLine.Quantity}x")</td>
+                            <td>@orderLine.Name (@orderLine.Manufacturer)</td>
+                            <td class="text-right">
+                                @if (orderLine.DiscountedLinePrice != orderLine.GrossLinePrice)
+                                {
+                                    <s>@orderLine.GrossLinePrice</s><br />@orderLine.DiscountedLinePrice
+                                }
+                                else
+                                {
+                                    <span>@orderLine.GrossLinePrice</span>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <hr />
+            <div class="text-right">
+                            <h4>Gesamtpreis: @Model.TotalPrice</h4>
+                @if (Model.PriceToPay != Model.TotalPrice)
+                {
+                            <h4>Produktrabatt: @Model.TotalProductDiscount</h4>
+                            <h4>Bestellungsrabatt: @Model.OrderDiscount</h4>
+                            <h3>Zu zahlen: @Model.PriceToPay</h3>
+                }
+                                         </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col text-right form-inline">
+            <b>Zahlungsmethode wählen:</b>
+                <select class="form-control">
+                    <option>Überweisung</option>
+                    <option disabled>Andere Optionen nicht verfügbar</option>
+                </select>
+            <div style="margin-top: 2rem;">
+                <button class="btn btn-success">Bestellung (verbindlich) aufgeben</button>
+            </div>
+        </div>
+    </div>
+</form>

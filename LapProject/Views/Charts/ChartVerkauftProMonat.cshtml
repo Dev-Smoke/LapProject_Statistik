@@ -1,0 +1,42 @@
+﻿@using Newtonsoft.Json
+@model LapProject.Models.Chart.SaleReportVM
+@{
+    ViewBag.Title = "Verkaufsstatistik";
+}
+
+<h2>Verkaufsstatistik</h2>
+
+<div>
+    <canvas id="myLineChart" width="800" height="400"></canvas>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    // Erstellen Sie den Kontext für das Diagramm
+    const ctx = document.getElementById('myLineChart').getContext('2d');
+
+    // Erstellen Sie das Diagramm
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: @Html.Raw(JsonConvert.SerializeObject(Model.Labels)),
+            datasets: [
+                {
+                    label: 'Verkaufte Stück',
+                    data: @Html.Raw(JsonConvert.SerializeObject(Model.Data)),
+                    borderColor: 'rgb(75, 192, 192)',
+                    tension: 0.1,
+                    fill: false
+                }
+            ]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+</script>

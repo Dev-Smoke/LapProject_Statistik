@@ -1,0 +1,12 @@
+﻿Requirements:
+
+- .NET Framework 4.7.2
+- Microsoft SQL Server 2017 or 2019
+
+Setup:
+
+- Use the SQL Script in _SQL to create the database
+- Adapt the Connection String in Web.config
+- Rebuild the Project
+- Unload the Project
+- Rebuild the Project *again*
