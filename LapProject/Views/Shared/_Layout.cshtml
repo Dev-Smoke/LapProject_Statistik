@@ -26,6 +26,9 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Unser Sortiment", "Index", "Products")</li>
                     <li>@Html.ActionLink("Über uns", "About", "Home")</li>
+                    <li>@Html.ActionLink("ChartTop5", "ChartTop5", "Charts")</li>
+                    <li>@Html.ActionLink("ChartVerkauftProMonat", "ChartVerkauftProMonat", "Charts")</li>
+                    <li>@Html.ActionLink("ChartVerkaufteProdukte", "ChartVerkaufteProdukte", "Charts")</li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     @if (User.Identity.IsAuthenticated)
